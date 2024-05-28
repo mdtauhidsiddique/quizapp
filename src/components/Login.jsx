@@ -33,7 +33,7 @@ const Login = () => {
         console.log(response.data.result.email);
         localStorage.setItem("email", response.data.result.email);
         console.log(localStorage.getItem("email"))
-        navigate("/dashboard");
+        navigate("/instruction");
       } else if (customcode === "201") {
         setErrorMessage(message);
       }
