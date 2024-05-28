@@ -1,7 +1,11 @@
 
+
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Result = ({ selectedQuestions, answers }) => {
+  const navigate = useNavigate();
+
   const calculateScore = () => {
     let score = 0;
     for (let i = 0; i < selectedQuestions.length; i++) {
@@ -12,14 +16,8 @@ const Result = ({ selectedQuestions, answers }) => {
     return score;
   };
 
-  const name = localStorage.getItem(response);
-
   const handleSubmit = async () => {
     const score = calculateScore();
-  
-   
-
-    console.log(name);
     try {
       const response = await fetch("http://localhost:8085/bhai/bhai-dekho", {
         method: "POST",
@@ -29,13 +27,14 @@ const Result = ({ selectedQuestions, answers }) => {
         body: JSON.stringify({
           score: score,
           totalQuestions: selectedQuestions.length,
-          name: name,
-          email: email
+          email: localStorage.getItem("email"),
         }),
       });
       if (response.ok) {
         alert("Quiz result submitted successfully!");
-        // You can perform further actions here, like redirecting the user
+        // Clear user data and redirect to login page
+        localStorage.removeItem("email");
+        navigate("/login");
       } else {
         throw new Error("Failed to submit quiz result");
       }
@@ -46,31 +45,19 @@ const Result = ({ selectedQuestions, answers }) => {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center w-full h-screen">
-        <div className="border flex flex-col items-center">
-          <h1>Quiz Result</h1>
-          {/* <p>
-            Your Score: {calculateScore()} / {selectedQuestions.length}
-          </p> */}
-          {/* <h2>Correct Answers:</h2>
-      <ul>
-        {selectedQuestions.map((question, index) => (
-          <li key={index}>
-            <strong>Question {index + 1}:</strong> {question.correctAnswer}
-          </li>
-        ))}
-      </ul> */}
-          <button
-            className="bg-blue-950 py-1 px-2 text-white rounded-md"
-            onClick={handleSubmit}
-          >
-            Submit your total score
-          </button>
-        </div>
+    <div className="flex flex-col items-center justify-center w-full h-screen">
+      <div className="border flex flex-col items-center p-5">
+        <h1>Quiz Result</h1>
+        <button
+          className="bg-blue-950 py-1 px-2 text-white rounded-md"
+          onClick={handleSubmit}
+        >
+          Submit your total score
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Result;
+

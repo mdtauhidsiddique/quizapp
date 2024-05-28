@@ -1,237 +1,552 @@
+// import React, { useState, useEffect } from "react";
+// import Header from "./Header";
+// import Result from "./Result"; // Import the Result component
+
+// const allQuestions = [
+//   {
+//     question: 'Which data structure in Python ensures that all elements are unique?',
+//     options: ['List', 'Tuple', 'Set', 'Dictionary'],
+//     correctAnswer: 'Set'
+//   },
+//   {
+//     question: 'Which method in Java is used to compare two strings, ignoring case considerations?',
+//     options: ['equals()', 'compareTo()', 'equalsIgnoreCase()', 'compare()'],
+//     correctAnswer: 'equalsIgnoreCase()'
+//   },
+//   {
+//     question: 'In JavaScript, what will the expression `0.1 + 0.2 === 0.3` return?',
+//     options: ['true', 'false', 'undefined', 'NaN'],
+//     correctAnswer: 'false'
+//   },
+//   {
+//     question: 'Which Python module is used to generate random numbers?',
+//     options: ['random', 'math', 'statistics', 'numpy'],
+//     correctAnswer: 'random'
+//   },
+//   {
+//     question: 'What is the time complexity of inserting an element at the end of a Python list?',
+//     options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'],
+//     correctAnswer: 'O(1)'
+//   },
+//   {
+//     question: 'In CSS, how can you apply a style to all elements of a specific class?',
+//     options: ['.classname', '#classname', 'classname', '*classname'],
+//     correctAnswer: '.classname'
+//   },
+//   {
+//     question: 'What is the output of the following JavaScript code?\n```javascript\nlet a = [1, 2, 3];\nlet b = a;\nb.push(4);\nconsole.log(a);\n```',
+//     options: ['[1, 2, 3]', '[1, 2, 3, 4]', '[4]', '[1, 2, 3, 4, 4]'],
+//     correctAnswer: '[1, 2, 3, 4]'
+//   },
+//   {
+//     question: 'In Python, what does the `@staticmethod` decorator do?',
+//     options: ['Defines a method that is bound to the class and not the instance', 'Defines a method that can access the class itself', 'Defines a method that can modify the class state', 'Defines a method that is a factory method'],
+//     correctAnswer: 'Defines a method that is bound to the class and not the instance'
+//   },
+//   {
+//     question: 'Which of the following is not a valid way to declare a JavaScript variable?',
+//     options: ['let myVar;', 'var myVar;', 'const myVar;', 'variable myVar;'],
+//     correctAnswer: 'variable myVar;'
+//   },
+//   {
+//     question: 'What is the purpose of the `finally` block in Java?',
+//     options: ['To execute code after a try/catch block, regardless of the outcome', 'To handle exceptions that are not caught by the try/catch block', 'To define a block of code to be executed before the try block', 'To terminate the program if an exception is thrown'],
+//     correctAnswer: 'To execute code after a try/catch block, regardless of the outcome'
+//   },
+//   {
+//     question: 'In SQL, which statement is used to remove a table from a database?',
+//     options: ['DELETE TABLE', 'DROP TABLE', 'REMOVE TABLE', 'TRUNCATE TABLE'],
+//     correctAnswer: 'DROP TABLE'
+//   },
+//   {
+//     question: 'What is a lambda function in Python?',
+//     options: ['A function defined without a name', 'A function that calls itself', 'A function that is used to initialize a class', 'A function that is called at the end of the program'],
+//     correctAnswer: 'A function defined without a name'
+//   },
+//   {
+//     question: 'What will be the output of the following code in Python?\n```python\ndef func(x, y=[]):\n    y.append(x)\n    return y\n\nprint(func(1))\nprint(func(2))\n```',
+//     options: ['[1] [2]', '[1] [1, 2]', '1 2', '[1, 2] [1, 2]'],
+//     correctAnswer: '[1] [1, 2]'
+//   },
+//   {
+//     question: 'Which HTML attribute is used to define inline styles?',
+//     options: ['style', 'class', 'styles', 'font'],
+//     correctAnswer: 'style'
+//   },
+//   {
+//     question: 'What is the result of the expression `2 ** 3 ** 2` in Python?',
+//     options: ['512', '64', '256', '8'],
+//     correctAnswer: '512'
+//   },
+//   {
+//     question: 'In Java, which method must be implemented by a class implementing the Runnable interface?',
+//     options: ['run()', 'start()', 'execute()', 'begin()'],
+//     correctAnswer: 'run()'
+//   },
+//   {
+//     question: 'Which JavaScript method is used to filter elements of an array based on a condition?',
+//     options: ['map()', 'reduce()', 'filter()', 'find()'],
+//     correctAnswer: 'filter()'
+//   },
+//   {
+//     question: 'What does the acronym REST stand for in web development?',
+//     options: ['Representational State Transfer', 'Remote Execution Service Transfer', 'Representational Server Transfer', 'Remote Execution State Transfer'],
+//     correctAnswer: 'Representational State Transfer'
+//   },
+//   {
+//     question: 'In Python, which keyword is used to create a generator function?',
+//     options: ['yield', 'return', 'generate', 'async'],
+//     correctAnswer: 'yield'
+//   },
+//   {
+//     question: 'What is the output of the following code in JavaScript?\n```javascript\nconsole.log(typeof null);\n```',
+//     options: ['"object"', '"null"', '"undefined"', '"string"'],
+//     correctAnswer: '"object"'
+//   },
+//   {
+//     question: 'Which method is used to sort elements in an array in JavaScript?',
+//     options: ['order()', 'arrange()', 'sort()', 'orderBy()'],
+//     correctAnswer: 'sort()'
+//   },
+//   {
+//     question: 'In Python, which built-in function can be used to iterate over two lists simultaneously?',
+//     options: ['zip()', 'enumerate()', 'map()', 'filter()'],
+//     correctAnswer: 'zip()'
+//   },
+//   {
+//     question: 'In Java, what is the purpose of the `transient` keyword?',
+//     options: ['To indicate that a field should not be serialized', 'To define a method that is only accessible within its own package', 'To declare a variable that cannot be changed', 'To define a class that cannot be instantiated'],
+//     correctAnswer: 'To indicate that a field should not be serialized'
+//   },
+//   {
+//     question: 'In CSS, which property is used to create space between the element’s border and its content?',
+//     options: ['margin', 'padding', 'border-spacing', 'spacing'],
+//     correctAnswer: 'padding'
+//   },
+//   {
+//     question: 'In SQL, what is the purpose of the `GROUP BY` clause?',
+//     options: ['To combine multiple columns into a single column', 'To group rows that have the same values in specified columns into aggregated data', 'To filter rows based on a specified condition', 'To sort the result set based on specified columns'],
+//     correctAnswer: 'To group rows that have the same values in specified columns into aggregated data'
+//   },
+//   {
+//     question: 'What is a "closure" in JavaScript?',
+//     options: ['A function having access to the parent scope, even after the parent function has closed', 'A function that is called immediately after it is defined', 'A function that returns another function', 'A function that is used as a callback'],
+//     correctAnswer: 'A function having access to the parent scope, even after the parent function has closed'
+//   },
+//   {
+//     question: 'Which of the following is not a built-in Python data type?',
+//     options: ['list', 'dictionary', 'tuple', 'tree'],
+//     correctAnswer: 'tree'
+//   },
+//   {
+//     question: 'In JavaScript, which event occurs when the user clicks on an HTML element?',
+//     options: ['onchange', 'onmouseover', 'onmouseclick', 'onclick'],
+//     correctAnswer: 'onclick'
+//   },
+//   {
+//     question: 'Which of the following HTTP methods is idempotent?',
+//     options: ['GET', 'POST', 'PATCH', 'CONNECT'],
+//     correctAnswer: 'GET'
+//   },
+//   {
+//     question: 'What is the purpose of the `super` keyword in Java?',
+//     options: ['To call the parent class constructor', 'To create a new instance of a class', 'To compare two objects', 'To check the superclass of a class'],
+//     correctAnswer: 'To call the parent class constructor'
+//   },
+//   {
+//     question: 'In Python, which function can be used to get the ASCII value of a character?',
+//     options: ['ascii()', 'ord()', 'chr()', 'char()'],
+//     correctAnswer: 'ord()'
+//   },
+//   {
+//     question: 'In CSS, which property is used to control the order of flex items in a flex container?',
+//     options: ['order', 'flex-direction', 'align-items', 'justify-content'],
+//     correctAnswer: 'order'
+//   },
+//   {
+//     question: 'What is the purpose of the `finally` block in exception handling?',
+//     options: ['To execute code regardless of whether an exception was thrown or not', 'To handle specific types of exceptions', 'To re-throw an exception', 'To log exception details'],
+//     correctAnswer: 'To execute code regardless of whether an exception was thrown or not'
+//   },
+//   {
+//     question: 'Which protocol is used for secure communication over a computer network?',
+//     options: ['HTTP', 'FTP', 'HTTPS', 'SMTP'],
+//     correctAnswer: 'HTTPS'
+//   },
+//   {
+//     question: 'In Python, which method is used to find the position of a substring in a string?',
+//     options: ['find()', 'index()', 'search()', 'locate()'],
+//     correctAnswer: 'find()'
+//   },
+//   {
+//     question: 'What is the output of the following code in Python?\n```python\nprint([i for i in range(5)])\n```',
+//     options: ['[0, 1, 2, 3, 4]', '[1, 2, 3, 4, 5]', '[0, 1, 2, 3, 4, 5]', '[0, 1, 2, 3, 4, 5, 6]'],
+//     correctAnswer: '[0, 1, 2, 3, 4]'
+//   },
+//   {
+//     question: 'In SQL, which clause is used to specify the conditions that must be met for the rows to be included in the result set?',
+//     options: ['WHERE', 'HAVING', 'FROM', 'SELECT'],
+//     correctAnswer: 'WHERE'
+//   },
+//   {
+//     question: 'In Java, what is the result of the expression `10 + 20 + "30"`?',
+//     options: ['"3030"', '"102030"', '60', '"60"'],
+//     correctAnswer: '"3030"'
+//   },
+//   {
+//     question: 'Which method in JavaScript returns the character at a specified index in a string?',
+//     options: ['charAt()', 'charCodeAt()', 'indexOf()', 'substring()'],
+//     correctAnswer: 'charAt()'
+//   }
+// ];
+
+
+// const DashBoard = () => {
+//   const [selectedQuestions, setSelectedQuestions] = useState([]);
+//   const [answers, setAnswers] = useState(Array(40).fill(null));
+//   const [attemptedCount, setAttemptedCount] = useState(0);
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+//   const [showResult, setShowResult] = useState(false); // State to control whether to show the result or not
+
+//   useEffect(() => {
+//     const shuffleArray = (array) => {
+//       for (let i = array.length - 1; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1));
+//         [array[i], array[j]] = [array[j], array[i]];
+//       }
+//       return array;
+//     };
+
+//     const randomQuestions = shuffleArray(allQuestions).slice(0, 40);
+//     setSelectedQuestions(randomQuestions);
+//   }, []);
+
+//   const handleOptionChange = (index, option) => {
+//     const newAnswers = [...answers];
+//     newAnswers[index] = option;
+//     setAnswers(newAnswers);
+//     if (newAnswers[index] && !answers[index]) {
+//       setAttemptedCount((prevCount) => prevCount + 1);
+//     } else if (!newAnswers[index] && answers[index]) {
+//       setAttemptedCount((prevCount) => prevCount - 1);
+//     }
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log("Submitted Answers: ", answers);
+//     setShowResult(true); // Set showResult to true when submitted
+//     // Here you would typically send the answers to a backend service
+
+
+//   };
+
+//   const handleNext = () => {
+//     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+//   };
+
+//   const handlePrevious = () => {
+//     setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+//   };
+
+
+//   return (
+//     <>
+//       {showResult ? ( // Conditional rendering to display either the quiz or the result
+//         <Result selectedQuestions={selectedQuestions} answers={answers} />
+        
+//       ) : (
+//         <>
+//           <Header />
+//           <p className="mt-3 text-center">Begin Your Challenge, Start Your Adventure, Let's Get Quizzing, Quiz Time, Test Your Knowledge, Ready, Set, Quiz!</p>
+//           <div className="text-right p-4 md:mx-28">
+//             <button className="border p-2 rounded-md font-medium">
+//               Attempted: {attemptedCount}/40
+//             </button>
+//           </div>
+//           <section>
+//             <div className="border rounded-md shadow-lg w-5/6 mx-auto p-6">
+//               <div className="container mx-auto p-4">
+//                 <form onSubmit={handleSubmit}>
+//                   <div className="mb-4">
+//                     {/* <h3 className="text-lg font-semibold">{`Question ${currentQuestionIndex + 1}`}</h3> */}
+//                     <h3 className="text-lg font-semibold">
+//                       {`${currentQuestionIndex + 1}. ${selectedQuestions[currentQuestionIndex]?.question}`}
+//                     </h3>
+//                     <div className="mt-2 space-y-2">
+//                       {selectedQuestions[currentQuestionIndex]?.options.map(
+//                         (option, optionIndex) => (
+//                           <label key={optionIndex} className="block border cursor-pointer py-1 px-2 rounded-md md:w-3/6 mx-5">
+//                             <input
+//                               type="radio"
+//                               name={`question-${currentQuestionIndex}`}
+//                               value={option}
+//                               checked={answers[currentQuestionIndex] === option}
+//                               onChange={() =>
+//                                 handleOptionChange(
+//                                   currentQuestionIndex,
+//                                   option
+//                                 )
+//                               }
+//                               className="mr-2"
+//                             />
+//                             {option}
+//                           </label>
+//                         )
+//                       )}
+//                     </div>
+//                   </div>
+//                   <div className="flex mx-5 gap-10 md:gap-20 mt-8">
+//                     <button
+//                       type="button"
+//                       onClick={handlePrevious}
+//                       disabled={currentQuestionIndex === 0}
+//                       className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded"
+//                     >
+//                       Previous
+//                     </button>
+//                     <button
+//                       type="button"
+//                       onClick={handleNext}
+//                       disabled={
+//                         currentQuestionIndex === selectedQuestions.length - 1
+//                       }
+//                       className="bg-blue-400 hover:bg-blue-500 text-white px-8 py-2 rounded"
+//                     >
+//                       Next
+//                     </button>
+//                   </div>
+//                   <div className="flex justify-end mx-5">
+//                     <button
+//                       type="submit"
+//                       className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mt-4"
+//                     >
+//                       Submit
+//                     </button>
+//                   </div>
+//                 </form>
+//               </div>
+//             </div>
+//           </section>
+//         </>
+//       )}
+//     </>
+//   );
+// };
+
+// export default DashBoard;
+
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Result from "./Result"; // Import the Result component
+import logo from '../assets/images/logoimg.png'; // Import logo image
 
 const allQuestions = [
   {
-    question: 'What is the correct syntax to output "Hello World" in Python?',
-    options: ['print("Hello World")', 'echo "Hello World"', 'console.log("Hello World")', 'System.out.println("Hello World")'],
-    correctAnswer: 'print("Hello World")'
+    question: 'Which data structure in Python ensures that all elements are unique?',
+    options: ['List', 'Tuple', 'Set', 'Dictionary'],
+    correctAnswer: 'Set'
   },
   {
-    question: 'Which HTML tag is used to define an internal style sheet?',
-    options: ['<css>', '<script>', '<style>', '<html>'],
-    correctAnswer: '<style>'
+    question: 'Which method in Java is used to compare two strings, ignoring case considerations?',
+    options: ['equals()', 'compareTo()', 'equalsIgnoreCase()', 'compare()'],
+    correctAnswer: 'equalsIgnoreCase()'
   },
   {
-    question: 'What does CSS stand for?',
-    options: ['Colorful Style Sheets', 'Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets'],
-    correctAnswer: 'Cascading Style Sheets'
+    question: 'In JavaScript, what will the expression 0.1 + 0.2 === 0.3 return?',
+    options: ['true', 'false', 'undefined', 'NaN'],
+    correctAnswer: 'false'
   },
   {
-    question: 'Which method can be used to find the length of a string in JavaScript?',
-    options: ['length()', 'len()', 'size()', 'count()'],
-    correctAnswer: 'length'
+    question: 'Which Python module is used to generate random numbers?',
+    options: ['random', 'math', 'statistics', 'numpy'],
+    correctAnswer: 'random'
   },
   {
-    question: 'Which of the following is not an operating system?',
-    options: ['Windows', 'Linux', 'Oracle', 'DOS'],
-    correctAnswer: 'Oracle'
+    question: 'What is the time complexity of inserting an element at the end of a Python list?',
+    options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'],
+    correctAnswer: 'O(1)'
   },
   {
-    question: 'What is the output of the following code in Java?\npublic class Main {\n  public static void main(String[] args) {\n    int a = 5;\n    int b = 10;\n    System.out.println(a + b);\n  }\n}',
-    options: ['15', '510', '5 + 10', 'Error'],
-    correctAnswer: '15'
+    question: 'In CSS, how can you apply a style to all elements of a specific class?',
+    options: ['.classname', '#classname', 'classname', '*classname'],
+    correctAnswer: '.classname'
   },
   {
-    question: 'Which of the following is used to create a hyperlink in HTML?',
-    options: ['<a href="url">', '<link url="url">', '<hyperlink src="url">', '<a src="url">'],
-    correctAnswer: '<a href="url">'
+    question: 'What is the output of the following JavaScript code?\njavascript\nlet a = [1, 2, 3];\nlet b = a;\nb.push(4);\nconsole.log(a);\n',
+    options: ['[1, 2, 3]', '[1, 2, 3, 4]', '[4]', '[1, 2, 3, 4, 4]'],
+    correctAnswer: '[1, 2, 3, 4]'
   },
   {
-    question: 'What is the correct way to declare a variable in JavaScript?',
-    options: ['var myVar;', 'variable myVar;', 'myVar = var;', 'declare myVar;'],
-    correctAnswer: 'var myVar;'
+    question: 'In Python, what does the @staticmethod decorator do?',
+    options: ['Defines a method that is bound to the class and not the instance', 'Defines a method that can access the class itself', 'Defines a method that can modify the class state', 'Defines a method that is a factory method'],
+    correctAnswer: 'Defines a method that is bound to the class and not the instance'
   },
   {
-    question: 'Which of the following is a Python tuple?',
-    options: ['["apple", "banana", "cherry"]', '("apple", "banana", "cherry")', '{ "name": "apple", "type": "fruit" }', 'None of the above'],
-    correctAnswer: '("apple", "banana", "cherry")'
+    question: 'Which of the following is not a valid way to declare a JavaScript variable?',
+    options: ['let myVar;', 'var myVar;', 'const myVar;', 'variable myVar;'],
+    correctAnswer: 'variable myVar;'
   },
   {
-    question: 'Which of the following is a valid CSS property?',
-    options: ['font-weight', 'text-decoration', 'background-color', 'All of the above'],
-    correctAnswer: 'All of the above'
+    question: 'What is the purpose of the finally block in Java?',
+    options: ['To execute code after a try/catch block, regardless of the outcome', 'To handle exceptions that are not caught by the try/catch block', 'To define a block of code to be executed before the try block', 'To terminate the program if an exception is thrown'],
+    correctAnswer: 'To execute code after a try/catch block, regardless of the outcome'
   },
   {
-    question: 'Which Java keyword is used to define a class?',
-    options: ['class', 'Class', 'define', 'public'],
-    correctAnswer: 'class'
+    question: 'In SQL, which statement is used to remove a table from a database?',
+    options: ['DELETE TABLE', 'DROP TABLE', 'REMOVE TABLE', 'TRUNCATE TABLE'],
+    correctAnswer: 'DROP TABLE'
   },
   {
-    question: 'In HTML, which attribute is used to specify the URL of the image?',
-    options: ['src', 'href', 'link', 'url'],
-    correctAnswer: 'src'
+    question: 'What is a lambda function in Python?',
+    options: ['A function defined without a name', 'A function that calls itself', 'A function that is used to initialize a class', 'A function that is called at the end of the program'],
+    correctAnswer: 'A function defined without a name'
   },
   {
-    question: 'Which function is used to parse a string to an integer in JavaScript?',
-    options: ['parseInt()', 'toInteger()', 'parseInteger()', 'int()'],
-    correctAnswer: 'parseInt()'
+    question: 'What will be the output of the following code in Python?\npython\ndef func(x, y=[]):\n    y.append(x)\n    return y\n\nprint(func(1))\nprint(func(2))\n',
+    options: ['[1] [2]', '[1] [1, 2]', '1 2', '[1, 2] [1, 2]'],
+    correctAnswer: '[1] [1, 2]'
   },
   {
-    question: 'Which of the following is a valid Python dictionary?',
-    options: ['["name": "John", "age": 30]', '{"name": "John", "age": 30}', '("name": "John", "age": 30)', '{name: "John", age: 30}'],
-    correctAnswer: '{"name": "John", "age": 30}'
+    question: 'Which HTML attribute is used to define inline styles?',
+    options: ['style', 'class', 'styles', 'font'],
+    correctAnswer: 'style'
   },
   {
-    question: 'Which CSS property controls the text size?',
-    options: ['font-size', 'text-size', 'font-style', 'text-style'],
-    correctAnswer: 'font-size'
+    question: 'What is the result of the expression 2 ** 3 ** 2 in Python?',
+    options: ['512', '64', '256', '8'],
+    correctAnswer: '512'
   },
   {
-    question: 'Which method is used to start a thread in Java?',
-    options: ['run()', 'start()', 'begin()', 'init()'],
-    correctAnswer: 'start()'
+    question: 'In Java, which method must be implemented by a class implementing the Runnable interface?',
+    options: ['run()', 'start()', 'execute()', 'begin()'],
+    correctAnswer: 'run()'
   },
   {
-    question: 'What is the purpose of the alt attribute in HTML?',
-    options: ['To specify the URL of an image', 'To specify alternative text for an image', 'To link to another webpage', 'To create a text area'],
-    correctAnswer: 'To specify alternative text for an image'
+    question: 'Which JavaScript method is used to filter elements of an array based on a condition?',
+    options: ['map()', 'reduce()', 'filter()', 'find()'],
+    correctAnswer: 'filter()'
   },
   {
-    question: 'Which of the following is not a reserved keyword in JavaScript?',
-    options: ['interface', 'throws', 'program', 'short'],
-    correctAnswer: 'program'
+    question: 'What does the acronym REST stand for in web development?',
+    options: ['Representational State Transfer', 'Remote Execution Service Transfer', 'Representational Server Transfer', 'Remote Execution State Transfer'],
+    correctAnswer: 'Representational State Transfer'
   },
   {
-    question: 'Which Python keyword is used to create a function?',
-    options: ['function', 'def', 'func', 'define'],
-    correctAnswer: 'def'
+    question: 'In Python, which keyword is used to create a generator function?',
+    options: ['yield', 'return', 'generate', 'async'],
+    correctAnswer: 'yield'
   },
   {
-    question: 'In CSS, which property is used to change the background color?',
-    options: ['color', 'bgcolor', 'background-color', 'bg-color'],
-    correctAnswer: 'background-color'
+    question: 'What is the output of the following code in JavaScript?\njavascript\nconsole.log(typeof null);\n',
+    options: ['"object"', '"null"', '"undefined"', '"string"'],
+    correctAnswer: '"object"'
   },
   {
-    question: 'Which command is used to list all files in a directory in Linux?',
-    options: ['ls', 'dir', 'list', 'show'],
-    correctAnswer: 'ls'
+    question: 'Which method is used to sort elements in an array in JavaScript?',
+    options: ['order()', 'arrange()', 'sort()', 'orderBy()'],
+    correctAnswer: 'sort()'
   },
   {
-    question: 'What does the "id" attribute do in HTML?',
-    options: ['Specifies a unique id for an element', 'Specifies the class of an element', 'Specifies the style of an element', 'Specifies the name of an element'],
-    correctAnswer: 'Specifies a unique id for an element'
+    question: 'In Python, which built-in function can be used to iterate over two lists simultaneously?',
+    options: ['zip()', 'enumerate()', 'map()', 'filter()'],
+    correctAnswer: 'zip()'
   },
   {
-    question: 'In Java, which operator is used to compare two values?',
-    options: ['==', '=', '===', 'equals'],
-    correctAnswer: '=='
+    question: 'In Java, what is the purpose of the transient keyword?',
+    options: ['To indicate that a field should not be serialized', 'To define a method that is only accessible within its own package', 'To declare a variable that cannot be changed', 'To define a class that cannot be instantiated'],
+    correctAnswer: 'To indicate that a field should not be serialized'
   },
   {
-    question: 'Which CSS property is used to change the text color of an element?',
-    options: ['fgcolor', 'text-color', 'color', 'font-color'],
-    correctAnswer: 'color'
+    question: 'In CSS, which property is used to create space between the element’s border and its content?',
+    options: ['margin', 'padding', 'border-spacing', 'spacing'],
+    correctAnswer: 'padding'
   },
   {
-    question: 'Which method can be used to round a number to the nearest integer in JavaScript?',
-    options: ['Math.round()', 'Math.ceil()', 'Math.floor()', 'Math.random()'],
-    correctAnswer: 'Math.round()'
-  },
-  // Add more questions to make the total number 40
-  {
-    question: 'Which symbol is used for comments in Python?',
-    options: ['//', '#', '<!--', '/*'],
-    correctAnswer: '#'
+    question: 'In SQL, what is the purpose of the GROUP BY clause?',
+    options: ['To combine multiple columns into a single column', 'To group rows that have the same values in specified columns into aggregated data', 'To filter rows based on a specified condition', 'To sort the result set based on specified columns'],
+    correctAnswer: 'To group rows that have the same values in specified columns into aggregated data'
   },
   {
-    question: 'What does SQL stand for?',
-    options: ['Structured Query Language', 'Strong Question Language', 'Structured Question Language', 'Strong Query Language'],
-    correctAnswer: 'Structured Query Language'
+    question: 'What is a "closure" in JavaScript?',
+    options: ['A function having access to the parent scope, even after the parent function has closed', 'A function that is called immediately after it is defined', 'A function that returns another function', 'A function that is used as a callback'],
+    correctAnswer: 'A function having access to the parent scope, even after the parent function has closed'
   },
   {
-    question: 'Which HTML element is used for the largest heading?',
-    options: ['<head>', '<h1>', '<h6>', '<heading>'],
-    correctAnswer: '<h1>'
+    question: 'Which of the following is not a built-in Python data type?',
+    options: ['list', 'dictionary', 'tuple', 'tree'],
+    correctAnswer: 'tree'
   },
   {
-    question: 'Which company developed JavaScript?',
-    options: ['Netscape', 'Microsoft', 'Sun Microsystems', 'IBM'],
-    correctAnswer: 'Netscape'
+    question: 'In JavaScript, which event occurs when the user clicks on an HTML element?',
+    options: ['onchange', 'onmouseover', 'onmouseclick', 'onclick'],
+    correctAnswer: 'onclick'
   },
   {
-    question: 'Which method is used to add an element at the end of an array in JavaScript?',
-    options: ['push()', 'pop()', 'shift()', 'unshift()'],
-    correctAnswer: 'push()'
+    question: 'Which of the following HTTP methods is idempotent?',
+    options: ['GET', 'POST', 'PATCH', 'CONNECT'],
+    correctAnswer: 'GET'
   },
   {
-    question: 'Which of the following is not a JavaScript data type?',
-    options: ['String', 'Boolean', 'Integer', 'Object'],
-    correctAnswer: 'Integer'
+    question: 'What is the purpose of the super keyword in Java?',
+    options: ['To call the parent class constructor', 'To create a new instance of a class', 'To compare two objects', 'To check the superclass of a class'],
+    correctAnswer: 'To call the parent class constructor'
   },
   {
-    question: 'Which attribute is used in HTML to link to an external style sheet?',
-    options: ['src', 'rel', 'href', 'link'],
-    correctAnswer: 'href'
+    question: 'In Python, which function can be used to get the ASCII value of a character?',
+    options: ['ascii()', 'ord()', 'chr()', 'char()'],
+    correctAnswer: 'ord()'
   },
   {
-    question: 'What is the default port number for HTTP?',
-    options: ['80', '21', '443', '8080'],
-    correctAnswer: '80'
+    question: 'In CSS, which property is used to control the order of flex items in a flex container?',
+    options: ['order', 'flex-direction', 'align-items', 'justify-content'],
+    correctAnswer: 'order'
   },
   {
-    question: 'Which JavaScript framework is maintained by Facebook?',
-    options: ['Angular', 'React', 'Vue', 'Ember'],
-    correctAnswer: 'React'
+    question: 'What is the purpose of the finally block in exception handling?',
+    options: ['To execute code regardless of whether an exception was thrown or not', 'To handle specific types of exceptions', 'To re-throw an exception', 'To log exception details'],
+    correctAnswer: 'To execute code regardless of whether an exception was thrown or not'
   },
   {
-    question: 'In CSS, which property is used to set the spacing between lines of text?',
-    options: ['letter-spacing', 'line-height', 'text-spacing', 'spacing'],
-    correctAnswer: 'line-height'
+    question: 'Which protocol is used for secure communication over a computer network?',
+    options: ['HTTP', 'FTP', 'HTTPS', 'SMTP'],
+    correctAnswer: 'HTTPS'
   },
   {
-    question: 'Which of the following is used to create a numbered list in HTML?',
-    options: ['<ul>', '<ol>', '<li>', '<dl>'],
-    correctAnswer: '<ol>'
+    question: 'In Python, which method is used to find the position of a substring in a string?',
+    options: ['find()', 'index()', 'search()', 'locate()'],
+    correctAnswer: 'find()'
   },
   {
-    question: 'Which Python method is used to remove whitespace from the beginning and end of a string?',
-    options: ['trim()', 'strip()', 'cut()', 'remove()'],
-    correctAnswer: 'strip()'
+    question: 'What is the output of the following code in Python?\npython\nprint([i for i in range(5)])\n',
+    options: ['[0, 1, 2, 3, 4]', '[1, 2, 3, 4, 5]', '[0, 1, 2, 3, 4, 5]', '[0, 1, 2, 3, 4, 5, 6]'],
+    correctAnswer: '[0, 1, 2, 3, 4]'
   },
   {
-    question: 'Which property is used to change the font of an element in CSS?',
-    options: ['font-style', 'font-family', 'font-weight', 'font-text'],
-    correctAnswer: 'font-family'
+    question: 'In SQL, which clause is used to specify the conditions that must be met for the rows to be included in the result set?',
+    options: ['WHERE', 'HAVING', 'FROM', 'SELECT'],
+    correctAnswer: 'WHERE'
   },
   {
-    question: 'Which of the following is a backend programming language?',
-    options: ['HTML', 'CSS', 'JavaScript', 'Python'],
-    correctAnswer: 'Python'
+    question: 'In Java, what is the result of the expression 10 + 20 + "30"?',
+    options: ['"3030"', '"102030"', '60', '"60"'],
+    correctAnswer: '"3030"'
   },
   {
-    question: 'In JavaScript, which operator is used to assign a value to a variable?',
-    options: ['=', '==', '===', ':'],
-    correctAnswer: '='
-  },
-  {
-    question: 'Which HTML element is used to define the title of a document?',
-    options: ['<title>', '<head>', '<meta>', '<header>'],
-    correctAnswer: '<title>'
-  },
-  {
-    question: 'In Python, which keyword is used to check if a value is present in a list, tuple, etc.?',
-    options: ['exists', 'in', 'present', 'check'],
-    correctAnswer: 'in'
-  },
-  {
-    question: 'Which CSS property is used to set the width of an element?',
-    options: ['height', 'size', 'width', 'length'],
-    correctAnswer: 'width'
-  },
-  {
-    question: 'In JavaScript, which method is used to convert a string to lowercase?',
-    options: ['toLowerCase()', 'lower()', 'changeCase()', 'toLower()'],
-    correctAnswer: 'toLowerCase()'
-  }
+    question: 'Which method in JavaScript returns the character at a specified index in a string?',
+    options: ['charAt()', 'charCodeAt()', 'indexOf()', 'substring()'],
+    correctAnswer: 'charAt()'
+  }
 ];
+
 
 const DashBoard = () => {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [answers, setAnswers] = useState(Array(40).fill(null));
   const [attemptedCount, setAttemptedCount] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showResult, setShowResult] = useState(false); // State to control whether to show the result or not
+  const [showResult, setShowResult] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
 
   useEffect(() => {
     const shuffleArray = (array) => {
@@ -246,6 +561,20 @@ const DashBoard = () => {
     setSelectedQuestions(randomQuestions);
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime === 0) {
+          clearInterval(timer);
+          handleSubmit(); // Auto-submit when the timer ends
+        }
+        return prevTime > 0 ? prevTime - 1 : prevTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const handleOptionChange = (index, option) => {
     const newAnswers = [...answers];
     newAnswers[index] = option;
@@ -258,12 +587,9 @@ const DashBoard = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     console.log("Submitted Answers: ", answers);
-    setShowResult(true); // Set showResult to true when submitted
-    // Here you would typically send the answers to a backend service
-
-
+    setShowResult(true);
   };
 
   const handleNext = () => {
@@ -274,16 +600,20 @@ const DashBoard = () => {
     setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
   };
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   return (
     <>
-      {showResult ? ( // Conditional rendering to display either the quiz or the result
+      {showResult ? (
         <Result selectedQuestions={selectedQuestions} answers={answers} />
-        
       ) : (
         <>
-          <Header />
-          <p className="mt-3 text-center">Start Quiz</p>
+          <Header timeLeft={formatTime(timeLeft)} />
+          <p className=" text-center text-xl mt-5 font-semibold">Begin Your Challenge, Start Your Adventure, Let's Get Quizzing, Quiz Time, Test Your Knowledge, Ready, Set, Quiz!</p>
           <div className="text-right p-4 md:mx-28">
             <button className="border p-2 rounded-md font-medium">
               Attempted: {attemptedCount}/40
@@ -294,7 +624,6 @@ const DashBoard = () => {
               <div className="container mx-auto p-4">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
-                    {/* <h3 className="text-lg font-semibold">{`Question ${currentQuestionIndex + 1}`}</h3> */}
                     <h3 className="text-lg font-semibold">
                       {`${currentQuestionIndex + 1}. ${selectedQuestions[currentQuestionIndex]?.question}`}
                     </h3>

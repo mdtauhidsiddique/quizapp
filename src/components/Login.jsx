@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import logo from '../assets/images/logoimg.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -24,12 +25,14 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:8085/auth/authenticatebyjson", formData);
       // Handle success, e.g., redirect to dashboard
-      console.log(response.data); // Assuming response contains token or user data
+     // console.log(response.data); // Assuming response contains token or user data
       const { customcode, message } = response.data;
      
 
       if (customcode === "200") {
-        localStorage.setItem("response", JSON.stringify(response.data));
+        console.log(response.data.result.email);
+        localStorage.setItem("email", response.data.result.email);
+        console.log(localStorage.getItem("email"))
         navigate("/dashboard");
       } else if (customcode === "201") {
         setErrorMessage(message);
@@ -46,11 +49,7 @@ const Login = () => {
     <div className="flex h-screen bg-gray-100 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="border bg-white rounded-md shadow-xl sm:mx-auto sm:w-full sm:max-w-sm py-4 px-12">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+            <img className="w-24 h-20 mx-auto" src={logo} alt="" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
